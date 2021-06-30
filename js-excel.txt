@@ -1,0 +1,181 @@
+var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+var excel = '<table>';
+var row = "<tr>";
+//设置表头
+var keys = Object.keys(JSONData[0]);
+keys.forEach(function (item) {
+     row += "<td style='width=200px;background-color: red'>" + item + '</td>'; // 设置宽度和颜色
+});
+//换行
+excel += row + "</tr>";
+//设置数据
+for (var i = 0; i < arrData.length; i++) {
+     var row = "<tr>";
+     for (var index in arrData[i]) {
+         console.log(arrData[i][index]);
+         //var value = arrData[i][index] === "." ? "" : arrData[i][index];
+         row += '<td>' + arrData[i][index] + '</td>';
+     }
+     excel += row + "</tr>";
+ }
+excel += "</table>";
+
+var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
+excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel';
+excelFile += '; charset=UTF-8">';
+excelFile += "<head>";
+excelFile += "<!--[if gte mso 9]>";
+excelFile += "<xml>";
+excelFile += "<x:ExcelWorkbook>";
+excelFile += "<x:ExcelWorksheets>";
+excelFile += "<x:ExcelWorksheet>";
+excelFile += "<x:Name>";
+excelFile += "{worksheet}";
+excelFile += "</x:Name>";
+excelFile += "<x:WorksheetOptions>";
+excelFile += "<x:DisplayGridlines/>";
+excelFile += "</x:WorksheetOptions>";
+excelFile += "</x:ExcelWorksheet>";
+excelFile += "</x:ExcelWorksheets>";
+excelFile += "</x:ExcelWorkbook>";
+excelFile += "</xml>";
+excelFile += "<![endif]-->";
+excelFile += "</head>";
+excelFile += "<body>";
+excelFile += excel;
+excelFile += "</body>";
+excelFile += "</html>";
+
+var uri = 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(excelFile);
+var link = document.createElement("a");
+link.href = uri;
+link.style = "visibility:hidden";
+link.download = FileName + ".xls";
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+
+解释  （以上为伪excel,实际是html文件）
+https://zhuanlan.zhihu.com/p/338935767     使用xlsx和xlsx-style
+
+实例（实例中excel的时间会比实际时间多43秒）
+downloadFile() {
+      let row = "<tr>";
+      row += "<td>工单编号</td>";
+      row += "<td>工单主题</td>";
+      row += "<td>预约人</td>";
+      row += "<td>审批人</td>";
+      row += "<td>发起预约时间</td>";
+      row += "<td>预约开始时间</td>";
+      row += "<td>预约结束时间</td>";
+      row += "<td>实际结束预约时间</td>";
+      row += "<td>工程预约状态</td>";
+      row += "</tr>"
+      row += "<tr>"
+      row += `<td>${this.AppliForm.CUT_NO ? this.AppliForm.CUT_NO : ''}</td>`;
+      row += `<td>${this.AppliForm.ORDER_SUBJECT ? this.AppliForm.ORDER_SUBJECT : ''}</td>`;
+      row += `<td>${this.AppliForm.PREACCOUNT ? this.AppliForm.PREACCOUNT : ''}</td>`;
+      row += `<td>${this.AppliForm.AUDIT_NAME ? this.AppliForm.AUDIT_NAME : ''}</td>`;
+      row += `<td>${this.AppliForm.CREATE_TIME ? this.AppliForm.CREATE_TIME : ''}</td>`;
+      row += `<td>${this.AppliForm.START_TIME ? this.AppliForm.START_TIME : ''}</td>`;
+      row += `<td>${this.AppliForm.END_TIME ? this.AppliForm.END_TIME : ''}</td>`;
+      row += `<td>${this.AppliForm.ACTUAL_TIME ? this.AppliForm.ACTUAL_TIME : ''}</td>`;
+      row += `<td>${this.AppliForm.PROSTATUS ? this.AppliForm.PROSTATUS : ''}</td>`;
+      row += "</tr>"
+      row += "<tr>"
+      row += "</tr>"
+      row += "<tr>";
+      row += "<td>工程预约网元</td>";
+      row += "<td>设备类型</td>";
+      row += "<td>大区</td>";
+      row += "<td>厂家</td>";
+      row += "</tr>"
+      this.dataArr.forEach(item => {
+        row += "<tr>";
+        row += `<td>${item.NE_NAME ? item.NE_NAME : ''}</td>`;
+        row += `<td>${item.NE_TYPE ? item.NE_TYPE : ''}</td>`;
+        row += `<td>${item.REGION ? item.REGION : ''}</td>`;
+        row += `<td>${item.VENDOR ? item.VENDOR : ''}</td>`;
+        row += "</tr>";
+      })
+      //换行
+      const colsconfig = [{wch:30}, {wch:60}, {wch:20}, {wch:20}, {wch:20}, {wch:20}, {wch:20}, {wch:20}, {wch:20}];
+      let tabledom = document.createElement("table");
+      tabledom.innerHTML = row;
+      document.body.appendChild(tabledom);
+      tabledom.style.display = 'none';
+      let sheet = XLSX.utils.table_to_sheet(tabledom);
+      sheet['!cols'] = colsconfig 
+      Object.keys(sheet).forEach((key) => {
+        if (key.indexOf('!') < 0) {
+          sheet[key].s = {
+            alignment: {
+              horizontal: 'center',
+              vertical: 'center',
+              wrapText: true,
+            },
+          }
+        }
+      })
+      sheet['E2'].z = 'yyyy-mm-dd hh:mm:ss';
+      sheet['F2'].z = 'yyyy-mm-dd hh:mm:ss';
+      sheet['G2'].z = 'yyyy-mm-dd hh:mm:ss';
+      sheet['H2'].z = 'yyyy-mm-dd hh:mm:ss';
+      sheet['A1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['B1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['C1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['D1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['E1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['F1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['G1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['H1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['I1'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['A4'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['B4'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['C4'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      sheet['D4'].s.fill = { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" }}
+      console.log(sheet);
+      this.downloadExcel(this.sheet2blob(sheet), `${this.AppliForm.CUT_NO}工程预约信息详情.xlsx`);
+      document.body.removeChild(tabledom);
+    },
+    sheet2blob(sheet, sheetName) {
+      sheetName = sheetName || 'sheet1';
+      let workbook = {
+        SheetNames: [sheetName],
+        Sheets: {}
+      };
+      workbook.Sheets[sheetName] = sheet; 
+
+      let wopts = {
+        bookType: 'xlsx',
+        bookSST: false,
+        type: 'binary'
+      };
+      let wbout = XLSXStyle.write(workbook, wopts);
+      let blob = new Blob([s2ab(wbout)], {
+        type: "application/octet-stream"
+      });
+      function s2ab(s) {
+        let buf = new ArrayBuffer(s.length);
+        let view = new Uint8Array(buf);
+        for (let i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+      }
+      return blob;
+    },
+    downloadExcel(url, saveName) {
+      if (typeof url == 'object' && url instanceof Blob) {
+        url = URL.createObjectURL(url); 
+      }
+      let aLink = document.createElement('a');
+      aLink.href = url;
+      aLink.download = saveName || '';
+      let event;
+      if (window.MouseEvent) event = new MouseEvent('click');
+      else {
+        event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      }
+      aLink.dispatchEvent(event);
+    }

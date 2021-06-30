@@ -1,0 +1,54 @@
+1.  如果真的想将对象冻结，应该使用Object.freeze方法。
+① const foo = Object.freeze({});
+// 常规模式时，下面一行不起作用；
+// 严格模式时，该行会报错
+foo.prop = 123;
+
+②除了将对象本身冻结，对象的属性也应该冻结。下面是一个将对象彻底冻结的函数。
+var constantize = (obj) => {
+  Object.freeze(obj);
+  Object.keys(obj).forEach( (key, i) => {
+    if ( typeof obj[key] === 'object' ) {
+      constantize( obj[key] );
+    }
+  });
+};
+
+2.顶层对象，在浏览器环境指的是window对象，在 Node 指的是global对象。ES5 之中，顶层对象的属性与全局变量是等价的。
+
+3. 对象的解构赋值可以取到继承的属性。
+const obj1 = {};
+const obj2 = { foo: 'bar' };
+Object.setPrototypeOf(obj1, obj2);
+
+const { foo } = obj1;
+foo // "bar
+
+上面代码中，对象obj1的原型对象是obj2。foo属性不是obj1自身的属性，而是继承自obj2的属性，解构赋值可以取到这个属性。
+Object.setPrototypeOf() 方法设置一个指定的对象的原型 ( 即, 内部[[Prototype]]属性）到另一个对象或  null。
+
+4. ES6 还为原生的 String 对象，提供了一个raw()方法。该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。
+String.raw`Hi\\n` === "Hi\\\\n" // true
+String.raw()方法可以作为处理模板字符串的基本方法，它会将所有变量替换，而且对斜杠进行转义，方便下一步作为字符串来使用。
+
+5. 
+let s = 'Hello world!';
+s.startsWith('Hello') // true
+s.endsWith('!') // true
+s.includes('o') // true
+'hello'.repeat(2) // "hellohello"
+
+const s = '  abc  ';
+s.trim() // "abc"
+s.trimStart() // "abc  "
+s.trimEnd() // "  abc"
+
+6.  new Set()    和 Arrray.from()
+  new Set（）可以去重普通数组
+
+7.  arr.reduce()   和 arr.reduceRight() 
+可以用于去重jsonArray
+
+8. arr.find()
+
+9. 组合1   aysnc await   组合2   async  xx().then()

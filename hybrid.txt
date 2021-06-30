@@ -1,0 +1,57 @@
+/*
+ *   Hybrid交互H5如何与Native通信
+ *   JavascriptCore == JS Bridge
+ *   URL schema
+*/
+
+var NativeBridge = {};
+
+NativeBridge .getAddressList = function(callback) {
+  // bridge在这个函数体里面要有H5和Native通信的方式，抹平差异
+  requestHybrid({
+     tagname: 'getAddressList',
+     callback: function(data) {
+       callback(data)
+     }
+     // hybrid: //getAdressList?callbackid=id
+  })
+}
+
+NativeBridge.getAddressList(function(data){
+  // ...
+})
+
+
+
+/*
+ *   收口
+ *   公共参数，设备号，手机
+ *   统计需求，ajax接口相应速度
+ *   统一回调处理，Server错误码code处理
+ *   .........
+*/
+
+
+// url => domin.com?flag=叶小钗
+
+var commonData = {
+  flag: '叶小钗',
+  id: '设备号',
+  ip: '',
+  geo: ''
+}
+
+
+
+/*
+ *  Hybrid 核心交互
+ *  定制化后退
+ *  本页面，重新渲染页面
+*/
+
+
+/*
+ *  账号体系
+ *  前后分离
+ *  WebView中的鉴权
+*/

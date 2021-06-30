@@ -1,0 +1,2 @@
+1、删除node_module文件夹  ①npm install rimraf -g      ②rimraf node_modules
+2. 内存溢出   https://blog.csdn.net/lucky_Zeng/article/details/108622002    https://blog.csdn.net/qq_35624642/article/details/81084331
