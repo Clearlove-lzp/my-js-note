@@ -60,3 +60,5 @@ array.from(arr),其中arr必须要有length属性，arr可以是类数组，字符串，Set结构, Arr
   window.atob(str)
 
 4. 上传excel识别https://www.cnblogs.com/liuxianan/p/js-excel.html
+
+5. evel()

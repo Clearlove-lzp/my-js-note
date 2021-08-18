@@ -52,3 +52,5 @@ s.trimEnd() // "  abc"
 8. arr.find()
 
 9. 组合1   aysnc await   组合2   async  xx().then()
+
+10  ?. 和 ?? 运算符
