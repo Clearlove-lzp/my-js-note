@@ -1,0 +1,85 @@
+{
+  "search.followSymlinks": false, // 解决vscode占用大量cpu
+  "fileheader.Author": "刘志鹏",
+  "fileheader.LastModifiedBy": "刘志鹏",
+  "stylusSupremacy.insertColons": false, // stylus
+  "stylusSupremacy.insertSemicolons": false,
+  "stylusSupremacy.insertBraces": false,
+  "stylusSupremacy.insertNewLineAroundBlocks": false,
+  "stylusSupremacy.insertNewLineAroundImports": false,
+  "workbench.activityBar.visible": true, // vscode 左边栏显示
+  "breadcrumbs.enabled": true, // vscode 面包屑
+  "javascript.updateImportsOnFileMove.enabled": "always", // 更改js名或js文件位置自动在引入处修改
+  "editor.tabSize": 2,
+  "auto-close-tag.activationOnLanguage": [
+  
+    "xml",
+    "php",
+    "blade",
+    "ejs",
+    "jinja",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "plaintext",
+    "markdown",
+    "vue",
+    "liquid",
+    "erb",
+    "lang-cfml",
+    "cfml",
+    "HTML (EEx)",
+    "HTML (Eex)",
+    "plist"
+  ],
+  "emmet.triggerExpansionOnTab": true, // 按tab补充标签 如 div.myClass
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true, // 粘贴自动格式化
+  "editor.suggestSelection": "first", // 自动取第一个建议
+  "editor.formatOnSave": true, // 保存自动格式化
+  //自动修复
+  "editor.codeActionsOnSave": {
+    // "source.fixAll": true, // 通用属性
+    "source.fixAll.eslint": true // eslint属性
+  },
+  "[html]": {
+    // html格式化
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "git.confirmSync": false,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "auto-close-tag.disableOnLanguage": [],
+  "git.autofetch": true,
+  "editor.accessibilitySupport": "off"
+}
